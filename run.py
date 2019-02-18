@@ -1,28 +1,31 @@
 import datetime
 now = datetime.datetime.now()
 
+from app.v1.models.models import User, user_list
 users_list = [{"username": "Harun", "password": "sensei", "role": "admin"}]
 comments = []
 initial_message = "Are you happy?"
 
 class Comments():
-	def __init__(self):
-		self.users = users_list
-		#self.username = login_func
 
 	def new_comment(self):
-		author = input("Enter username: ")
-		comment_id = input("Enter password: ")
-		message = input("Enter message: ")    
 
-		comment = {"author": author,
-				"comment_id": len(comments)+1,
-				"comment": message,
-				"timestamp": now.strftime("%Y-%m-%d %H:%M")}    
+		author = input("Enter author name: ")
+		comment = input("Enter message: ")    
 
-		print(comment)
-		comments.append(comment)
-		return True
+		comment = User().save_user(author, comment, now)
+		return comment
+
+	def edit_comment(self):
+
+		author = input("Enter new author name: ")
+		comment = input("Enter new message: ")
+
+		new_comment = User().edit(author, comment, now)
+		return new_comment
+
+
+
 
 
 class UserLogin():
@@ -35,7 +38,9 @@ class UserLogin():
 				if user["password"] == password:
 					username = log
 					print("You have logged in Succesfully")
-					return Comments().new_comment()
+					Comments().new_comment()
+					Comments().edit_comment()
+					print ("comment updated Succesfully!")
 
 			else:
 				print ("Log in Unsuccessful")

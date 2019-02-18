@@ -1,23 +1,29 @@
-users = []
+user_list = []
 
 class User:
 
-	def __init__():
+	def __init__(self):
 
-		self.user_list = users
-	def save_user(self):
+		self.users = user_list
 
-		new_user = {
-		"name": name,
-		"username": username,
-		"password": password
-		}
+	def save_user(self, author, comment, now):
 
-		self.user_list.append(new_user)
-		return self.user_list
+		comment = {"author": author,
+				"comment_id": len(self.users)+1,
+				"comment": comment,
+				"timestamp": now.strftime("%Y-%m-%d %H:%M")}    
 
-	def user_exists(self):
+		print(comment)
+		self.users.append(comment)
+		return self.users
 
-		for user in users:
-			if user.username == username and user.password == password:
-				return True
+
+	def edit(self, author, comment, now):
+
+		comment = {"author": author,
+				"comment_id": len(self.users)+1,
+				"comment": comment,
+				"timestamp": now.strftime("%Y-%m-%d %H:%M")}
+		print(comment)
+		self.users.append(comment)
+		return self.users
